@@ -7,10 +7,12 @@ import { Message } from './entities/message.entity';
 export class MessagesService {
   messages: Message[] = [{ name: "Bomb", message: "Hello World" }];
   clientToUser = {};
-  create(createMessageDto: CreateMessageDto) {
-    const message = { ...createMessageDto };
-    return this.messages.push(message);
+  create(createMessageDto: CreateMessageDto,clientId: string) {
+    const message = { ...createMessageDto,name: this.clientToUser[clientId] };
+    this.messages.push(message);
+    return message;
   }
+
 
   findAll() {
     return this.messages;
